@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Qdelícia Frutas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-light);
+            padding: 20px;
+        }
+        .login-container {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px var(--shadow);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .login-container h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+        .input-group select,
+        .input-group input[type="text"],
+        .input-group input[type="password"], /* (REQ 2) Adicionado tipo password */
+        .input-group button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        .input-group button {
+            padding: 12px;
+            background: var(--gradient);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+        .input-group button:hover {
+            opacity: 0.9;
+        }
+        
+        /* Botão de Teste (secundário) */
+        .input-group button.secondary {
+            background: #f0f0f0;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            margin-top: 5px;
+        }
+        .input-group button.secondary:hover {
+            background: #e0e0e0;
+            opacity: 1;
+        }
+
+        /* Estilo para botões desabilitados (pela restrição de horário) */
+        .input-group button:disabled {
+            background: #ccc;
+            color: #888;
+            border-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .error-message {
+            color: #ff3860;
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+        }
+        /* Estilo para a mensagem de restrição de horário */
+        #time-restriction-message {
+             color: #ff4500; /* Laranja/Vermelho */
+             font-weight: bold;
+             margin-top: 10px;
+        }
+        
+        .logo-login {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* (REQ 3) CSS para "Mostrar Senha" */
+        .password-group {
+            position: relative;
+        }
+        #toggle-password {
+            position: absolute;
+            right: 15px;
+            /* Ajustado para alinhar com o campo de input, considerando a label */
+            top: 60%; 
+            cursor: pointer;
+            color: #888;
+        }
+        
+        /* (REQ 4) CSS para "Lembrar-me" */
+        .options-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .options-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            accent-color: var(--primary-color);
+        }
+        .options-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h2 id="loading-welcome-message"></h2>
+            <p id="loading-status">...</p>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <img src="./images/logo-qdelicia.png" alt="Logomarca Qdelícia Frutas" class="logo-login">
+        <h1>Acesso do Promotor</h1>
+        
+        <form id="login-form">
+            <div class="input-group">
+                <label for="select-estado">Estado:</label>
+                <select id="select-estado" required>
+                    <option value="" disabled selected>Carregando Estados...</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="select-promotor">Promotor:</label>
+                <select id="select-promotor" required disabled>
+                    <option value="" disabled selected>Selecione primeiro o Estado</option>
+                </select>
+            </div>
+
+            <!-- (REQ 2 & 3) Campo de Senha com Ícone de "Mostrar" -->
+            <div class="input-group password-group">
+                <label for="input-id">ID Pessoal Único:</label>
+                <input type="password" id="input-id" required placeholder="Digite seu ID (Ex: RN1001)">
+                <i class="fas fa-eye" id="toggle-password"></i>
+            </div>
+            
+            <!-- (REQ 4) Checkbox "Lembrar-me" -->
+            <div class="options-group">
+                <input type="checkbox" id="remember-me">
+                <label for="remember-me">Lembrar meu Estado e Nome</label>
+            </div>
+            
+            <p id="error-message" class="error-message">ID Pessoal Único inválido.</p>
+
+            <p id="time-restriction-message" class="error-message" style="display:none;"></p>
+
+            <div class="input-group">
+                <button type="submit" id="login-btn">Entrar</button>
+            </div>
+            
+            <div class="input-group">
+                <button type="button" id="test-alert-btn" class="secondary">
+                    <i class="fas fa-volume-up"></i> Testar Áudio/Notificação
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="alert.js"></script> 
+    <script src="login.js"></script>
+</body>
+</html>
