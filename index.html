@@ -1,1 +1,118 @@
-index
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Área do Promotor - Registros e Informações">
+    <meta name="author" content="Qdelícia Frutas">
+    <title>Home - Qdelícia Frutas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script src="./js/shared.js"></script>
+    <script>
+        if (typeof QdeliciaShared !== 'undefined') {
+            QdeliciaShared.checkSession();
+        }
+    </script>
+    
+    <!-- Contador Regressivo da Sessão (Até 15:20) -->
+    <div id="session-countdown-container" class="session-countdown-container">
+        <i class="fas fa-hourglass-half"></i>
+        <span id="session-countdown">00:00:00</span>
+        <span class="tooltip-text">Sessão expira em</span>
+    </div>
+
+    <div class="menu-overlay"></div>
+    <aside class="side-menu"></aside>
+
+    <!-- Cabeçalho Principal -->
+    <header id="cabecalho-principal">
+        <button class="menu-toggle" aria-label="Abrir Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo-placeholder">
+            <img src="./images/logo-qdelicia.png" alt="Logomarca Qdelícia Frutas"> 
+        </div>
+        <h1>Qdelícia Frutas</h1>
+        <p>Página Inicial</p>
+        <h2 id="welcome-message" style="margin-top: 10px; font-size: 1.5rem; color: white;"></h2>
+    </header>
+    
+    <nav></nav>
+    
+    <main>
+       
+        <!-- Seção dos Contadores Regressivos -->
+        <section id="task-trackers" class="task-trackers-container">
+            <h2>Próximos Alertas do Dia</h2>
+            <!-- Os contadores serão injetados aqui pelo script.js -->
+        </section>
+
+        <!-- Seção de Carrossel (Existente) -->
+        <div class="carousel-container">
+            <div class="carousel-slides">
+                <img src="./images/01.jpg" alt="foto" class="slide">
+                <img src="./images/02.jpg" alt="foto" class="slide">
+                <img src="./images/03.jpg" alt="foto" class="slide">
+                <img src="./images/04.jpg" alt="foto" class="slide">
+                <img src="./images/05.jpg" alt="foto" class="slide">
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+
+        <!-- Seções de Missão e Rotina (Existentes) -->
+        <section class ="missao" >
+            <h2>Nossa Missão:</h2>
+            <ul>
+                <li>Ter foco no atendimento ao cliente;</li>
+                <li>Estar sempre disposto a ouvir e entender o cliente;</li>
+                <li>Tornar a experiência do cliente cada vez melhor e única;</li>
+                <li>Buscar sempre melhorar a cada dia.</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Nossa rotina diária:</h2>
+            <ul>
+                <li>Manter pontos de venda sempre limpos e organizados;</li>
+                <li>Manter boa comunicação com líderes e equipe;</li>
+                <li>Estar atento aos canais de comunicação;</li>
+                <li>Informar diariamente informações da loja como: estoques, avarias, qualidade...</li>
+            </ul>
+        </section>
+    </main>
+       
+    <footer>
+        <p>&copy; 2025 Qdelícia Frutas. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Botões Flutuantes (WhatsApp e Voltar ao Topo) -->
+    <a href="https://wa.me/5581997250086" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <!-- Modal de Alerta In-App (Pop-up interno) -->
+    <div id="in-app-alert-modal" class="in-app-modal-overlay">
+        <div class="in-app-modal-content">
+            <h3><i class="fas fa-bell"></i> Lembrete Qdelícia</h3>
+            <p id="in-app-alert-message">Mensagem do alerta...</p>
+            <button id="in-app-alert-close">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Scripts da Aplicação -->
+    <script src="script.js"></script>
+    <script src="alert.js"></script> 
+</body>
+</html>
